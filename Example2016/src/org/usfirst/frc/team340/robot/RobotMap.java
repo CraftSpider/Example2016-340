@@ -6,7 +6,7 @@ package org.usfirst.frc.team340.robot;
  * floating around.
  */
 public class RobotMap {
-    //
+	//
 	// Motor Ports
 	//
 	
