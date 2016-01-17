@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *Dummy subsystem for simple drive code, including motors and encoders.
+ *@version 1.0
  */
 public class ExampleDrive extends Subsystem {
     

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *Dummy subsystem for a simple Arm with a claw at the end. Includes motors, solenoids, and digital sensors.
+ *@version 1.0
  */
 public class ExampleClawArm extends Subsystem {
     
