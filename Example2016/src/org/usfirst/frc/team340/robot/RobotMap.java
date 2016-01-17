@@ -13,8 +13,15 @@ public class RobotMap {
 	public static int DriveLeftMotor = 0;
 	public static int DriveRightMotor = 1;
 	
-	public static int ClawLeftMotor = 2;
-	public static int ClawRightMotor = 3;
+	public static int ClawArmMotor = 2;
+	public static int ClawTopMotor = 3;
+	
+	//
+	// Solenoid Ports
+	//
+	
+	public static int ClawLeftPiston = 0;
+	public static int ClawRightPiston = 1;
 	
 	//
 	// Digital I/O Ports

@@ -16,16 +16,34 @@ public class ExampleClawArm extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	TalonSRX leftMotor = new TalonSRX(RobotMap.ClawLeftMotor);
-	TalonSRX rightMotor = new TalonSRX(RobotMap.ClawRightMotor);
+	TalonSRX armMotor;
+	TalonSRX clawMotor;
 	
-	Solenoid leftPiston = new Solenoid(0);
+	Solenoid leftPiston;
+	Solenoid rightPiston;
+	
+	public ExampleClawArm() {
+		armMotor = new TalonSRX(RobotMap.ClawArmMotor);
+		clawMotor = new TalonSRX(RobotMap.ClawTopMotor);
+		
+		leftPiston = new Solenoid(RobotMap.ClawLeftPiston);
+		rightPiston = new Solenoid(RobotMap.ClawRightPiston);
+	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    public void openClaw() {
+    	leftPiston.set(true);
+    	rightPiston.set(true);
+    }
+    
+    public void closeClaw() {
+    	leftPiston.set(false);
+    	rightPiston.set(false);
+    }
     
 }
 
