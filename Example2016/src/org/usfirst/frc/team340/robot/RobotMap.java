@@ -27,8 +27,16 @@ public class RobotMap {
 	// Digital I/O Ports
 	//
 	
-	public static int DriveLeftEncoder1 = 0;
-	public static int DriveLeftEncoder2 = 1;
-	public static int DriveRightEncoder1 = 2;
-	public static int DriveRightEncoder2 = 3;
+	public static int DriveLeftEncoder1 = 4;
+	public static int DriveLeftEncoder2 = 5;
+	public static int DriveRightEncoder1 = 6;
+	public static int DriveRightEncoder2 = 7;
+	public static int ClawBottomSwitch = 8;
+	public static int ClawTopSwitch = 9;
+	
+	//
+	// Analog I/O Ports
+	//
+	
+	public static int ClawArmAngleSensor = 0;
 }

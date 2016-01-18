@@ -3,6 +3,8 @@ package org.usfirst.frc.team340.robot.subsystems;
 
 import org.usfirst.frc.team340.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,11 +18,15 @@ public class ExampleClawArm extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	TalonSRX armMotor;
-	TalonSRX clawMotor;
+	private TalonSRX armMotor;
+	private TalonSRX clawMotor;
 	
-	Solenoid leftPiston;
-	Solenoid rightPiston;
+	private Solenoid leftPiston;
+	private Solenoid rightPiston;
+	
+	private AnalogPotentiometer armAngleSensor;
+	private DigitalInput bottomSwitch;
+	private DigitalInput topSwitch;
 	
 	public ExampleClawArm() {
 		armMotor = new TalonSRX(RobotMap.ClawArmMotor);
@@ -28,6 +34,9 @@ public class ExampleClawArm extends Subsystem {
 		
 		leftPiston = new Solenoid(RobotMap.ClawLeftPiston);
 		rightPiston = new Solenoid(RobotMap.ClawRightPiston);
+		
+		armAngleSensor = new AnalogPotentiometer(RobotMap.ClawArmAngleSensor);
+		
 	}
 
     public void initDefaultCommand() {
@@ -45,5 +54,14 @@ public class ExampleClawArm extends Subsystem {
     	rightPiston.set(false);
     }
     
+    public void sendArmToPosition(int position) {
+    	if (armAngleSensor.get() > position && !bottomSwitch.get()) {
+    		armMotor.set(-1);
+    	} else if (armAngleSensor.get() < position && !topSwitch.get()) {
+    		armMotor.set(1);
+    	} else {
+    		armMotor.stopMotor();
+    	}
+    }
 }
 
