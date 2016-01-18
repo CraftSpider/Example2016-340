@@ -54,14 +54,39 @@ public class ExampleClawArm extends Subsystem {
     	rightPiston.set(false);
     }
     
+    /**
+     * Send arm to a specified potentiometer angle. Potentiometer for this example has zero corresponding exactly to the bottom and a max value corresponding exactly to the top.
+     * <br><br><i>ALWAYS call in a loop.</i>
+     */
     public void sendArmToPosition(int position) {
-    	if (armAngleSensor.get() > position && !bottomSwitch.get()) {
+    	if (armAngleSensor.get() > position && !armAtBottom()) {
     		armMotor.set(-1);
-    	} else if (armAngleSensor.get() < position && !topSwitch.get()) {
+    	} else if (armAngleSensor.get() < position && !armAtTop()) {
     		armMotor.set(1);
     	} else {
     		armMotor.stopMotor();
     	}
     }
+    
+    public void armToBottom() {
+    	while(!armAtBottom()) {
+    		armMotor.set(-1);
+    	}
+    	armMotor.stopMotor();
+    }
+    
+    public void armToTop() {
+    	while(!armAtTop()) {
+    		armMotor.set(1);
+    	}
+    	armMotor.stopMotor();
+    }
+    
+    public boolean armAtBottom() {
+    	return ((armAngleSensor.get() < 1) || bottomSwitch.get());
+    }
+    
+    public boolean armAtTop() {
+    	return ((armAngleSensor.get() > 179) || topSwitch.get());
+    }
 }
-
