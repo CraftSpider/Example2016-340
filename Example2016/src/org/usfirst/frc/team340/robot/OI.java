@@ -76,5 +76,13 @@ public class OI {
 	public OI() {
 		A1.whenPressed(new ExampleCommand());
 	}
+	
+	public double getDriveMove() {
+		return -xBoxDriver.getRawAxis(0);
+	}
+	
+	public double getDriveRotate() {
+		return xBoxDriver.getRawAxis(1);
+	}
 }
 
