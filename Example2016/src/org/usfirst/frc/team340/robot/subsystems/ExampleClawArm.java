@@ -36,7 +36,8 @@ public class ExampleClawArm extends Subsystem {
 		rightPiston = new Solenoid(RobotMap.ClawRightPiston);
 		
 		armAngleSensor = new AnalogPotentiometer(RobotMap.ClawArmAngleSensor);
-		
+		bottomSwitch = new DigitalInput(RobotMap.ClawBottomSwitch);
+		topSwitch = new DigitalInput(RobotMap.ClawTopSwitch);
 	}
 
     public void initDefaultCommand() {
@@ -54,32 +55,16 @@ public class ExampleClawArm extends Subsystem {
     	rightPiston.set(false);
     }
     
-    /**
-     * Send arm to a specified potentiometer angle. Potentiometer for this example has zero corresponding exactly to the bottom and a max value corresponding exactly to the top.
-     * <br><br><i>ALWAYS call in a loop.</i>
-     */
-    public void sendArmToPosition(int position) {
-    	if (armAngleSensor.get() > position && !armAtBottom()) {
-    		armMotor.set(-1);
-    	} else if (armAngleSensor.get() < position && !armAtTop()) {
-    		armMotor.set(1);
-    	} else {
-    		armMotor.stopMotor();
-    	}
+    public void armDown(double speed) {
+		armMotor.set(-speed);
     }
     
-    public void armToBottom() {
-    	while(!armAtBottom()) {
-    		armMotor.set(-1);
-    	}
-    	armMotor.stopMotor();
+    public void armUp(double speed) {
+    	armMotor.set(speed);
     }
     
-    public void armToTop() {
-    	while(!armAtTop()) {
-    		armMotor.set(1);
-    	}
-    	armMotor.stopMotor();
+    public void armStop() {
+    	armMotor.set(0);
     }
     
     public boolean armAtBottom() {
@@ -88,5 +73,9 @@ public class ExampleClawArm extends Subsystem {
     
     public boolean armAtTop() {
     	return ((armAngleSensor.get() > 179) || topSwitch.get());
+    }
+    
+    public double armPosition() {
+    	return armAngleSensor.get();
     }
 }
