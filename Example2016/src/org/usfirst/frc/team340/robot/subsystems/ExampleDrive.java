@@ -1,5 +1,8 @@
 package org.usfirst.frc.team340.robot.subsystems;
 
+import java.util.logging.Logger;
+
+import org.usfirst.frc.team340.robot.Robot;
 import org.usfirst.frc.team340.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -26,6 +29,9 @@ public class ExampleDrive extends Subsystem {
 	// Encoders on motors
 	private Encoder leftDriveEncoder;
 	private Encoder rightDriveEncoder;
+
+    // Logger
+    Logger logger = Robot.getLogger("drive");
 	
 	public ExampleDrive() {
 		leftDrive = new TalonSRX(RobotMap.DriveLeftMotor);
@@ -38,6 +44,7 @@ public class ExampleDrive extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new DriveWithXbox());
     }
     
     public void resetEncoder(){
@@ -71,9 +78,14 @@ public class ExampleDrive extends Subsystem {
     	rightDrive.set(speed);
     }
     
-    public void setLeftRightMotorOutputs(double leftOutput, double rightOutput){
+    public void setBothDrive(double leftOutput, double rightOutput){
     	setLeftDrive(leftOutput);
-    	setRightDrive(-rightOutput);
+    	setRightDrive(rightOutput);
+    }
+
+    public void StopBothDrive() {
+        setLeftDrive(0);
+        setRightDrive(0);
     }
     
     public void arcadeDrive(double moveValue, double rotateValue){
